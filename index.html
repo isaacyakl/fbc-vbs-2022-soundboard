@@ -27,6 +27,47 @@
             cursor: pointer;
             user-select: none;
         }
+        #overlay {
+            z-index: 100;
+            position: absolute;
+            right: 0;
+            top: 35vh;
+            color: white;
+            padding: 0.65em;
+            background-color: #242424;
+        }
+
+        #overlay * {
+            color: white;
+        }
+
+        #overlay button {
+            color: black;
+            background-color: #e0e0e0;
+            border-radius: 0.3em;
+            padding: 0.5em;
+        }
+
+        #overlay button:hover {
+            background-color: #b4b2b2;
+        }
+
+        #overlay button:active {
+            background-color: white;
+        }
+
+        #overlay li {
+            display: list-item;
+            padding: 0.3em;
+        }
+
+        #overlay ul {
+            margin: 0;
+        }
+
+        .hide {
+            display: none;
+        }
     </style>
     <script>
         function playSound( fileName ) {
@@ -45,10 +86,22 @@
         window.addEventListener("keydown", (e) => {
             if(e.keyCode == 83) stopAllSounds();
         });
+        window.addEventListener("scroll", (e) => {
+            document.querySelector("#overlay").style.top = window.pageYOffset + 50 + "px";
+        });
+        const toggleHide = () => {
+            document.querySelector("#overlayBody").classList.toggle("hide");
+        }
+        const adjustVolumes = () => {
+            const audios = document.querySelectorAll("audio");
+            audios.forEach(audio => {
+                audio.volume = document.getElementById("volume").value;
+            });
+        }
     </script>
     
     <style type="text/css">
-        * {margin:0; padding:0; text-indent:0; }
+        /* {margin:0; padding:0; text-indent:0; } */
         .s1 { color: #231F20; font-family:Calibri, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 32pt; }
         .s2 { color: #231F20; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
         .s3 { color: #4C2560; font-family:Arial, sans-serif; font-style: italic; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
@@ -168,15 +221,31 @@
     </style>
 </head>
 <body>
-    <p class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 1 DRAMA</p>
-    <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
-    <p style="text-indent: 0pt;text-align: left;"><br/></p>
-    <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
-    <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;"><mark onclick="playSound('themeMusic')">(Theme Music)</mark></p>
-    <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">(Scene begins with ZOEY standing behind her contestant desk engrossed in a book. Then STEPHEN enters from backstage with a small rolling suitcase and a large academic achievement medal</p>
-    <p class="s3" style="padding-left: 6pt;text-indent: 0pt;text-align: left;">around his neck. He doesn&apos;t notice ZOEY at first because he&apos;s awe-struck with the game show set and TV studio.)</p>
-    <p style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;"><b>STEPHEN: </b>Wow! This . . . is . . . AWESOME! <span class="s4">(as he walks to the front of the stage) </span>Haha! What a dream come true! I finally get to put my vast knowledge on display for everyone to see! <span class="s4">(turns and sees ZOEY, his opponent, reading her book) </span>Ha . . . poor girl. Just look at her . . . frantically studying. She hasn&apos;t got a chance. <span class="s4">(clears his throat to get her attention) </span>Ahem!</p>
-    <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">ZOEY: <span class="s4">(looks up from her book) </span><span class="p">Oh, sorry. I was engrossed in my book.</span></h1>
+    <div id="overlay">
+        Controls <button id="overlayToggle" onclick="toggleHide()">&#8633;</button>
+        <div id="overlayBody">
+            <hr>
+            <p>Press "S" key to <button onclick="stopAllSounds()">🛑 sounds</button></p>
+            <p>Volume <input type="range" id="volume" name="volume" min="0.0" max="1.0" step="0.01" value="1.0" oninput="adjustVolumes()"/></p>
+            <hr>
+            <ul>
+                <li><a href="#day1">Day 1</a></li>
+                <li><a href="#day2">Day 2</a></li>
+                <li><a href="#day3">Day 3</a></li>
+                <li><a href="#day4">Day 4</a></li>
+                <li><a href="#day5">Day 5</a></li>
+            </ul>
+        </div>
+        </div>
+        <p id="day1" class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 1 DRAMA</p>
+        <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
+        <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;"><mark onclick="playSound('themeMusic')">(Theme Music)</mark></p>
+        <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">(Scene begins with ZOEY standing behind her contestant desk engrossed in a book. Then STEPHEN enters from backstage with a small rolling suitcase and a large academic achievement medal</p>
+        <p class="s3" style="padding-left: 6pt;text-indent: 0pt;text-align: left;">around his neck. He doesn&apos;t notice ZOEY at first because he&apos;s awe-struck with the game show set and TV studio.)</p>
+        <p style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;"><b>STEPHEN: </b>Wow! This . . . is . . . AWESOME! <span class="s4">(as he walks to the front of the stage) </span>Haha! What a dream come true! I finally get to put my vast knowledge on display for everyone to see! <span class="s4">(turns and sees ZOEY, his opponent, reading her book) </span>Ha . . . poor girl. Just look at her . . . frantically studying. She hasn&apos;t got a chance. <span class="s4">(clears his throat to get her attention) </span>Ahem!</p>
+        <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">ZOEY: <span class="s4">(looks up from her book) </span><span class="p">Oh, sorry. I was engrossed in my book.</span></h1>
     <h1 style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">STEPHEN: <span class="p">No worries. I&apos;m Stephen.</span></h1>
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: left;">ZOEY: <span class="p">Nice to meet you, Stephen. I&apos;m Zoey. What&apos;s that you&apos;re wearing? It looks like a medal or something.</span></h1>
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: left;">STEPHEN: <span class="s4">(proudly) </span><span class="p">Oh, this? It&apos;s just my latest academic achievement award, that&apos;s all.</span></h1>
@@ -416,7 +485,7 @@
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">(WADE announces the winner then signs off for the day.)</p>
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">WADE: <span class="s4">(to the audience) </span><span class="p">And that&apos;s our show for today! Just remember . . . we didn&apos;t evolve; we were created in God&apos;s image! See you tomorrow, everyone!</span></h1>
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;"><mark onclick="playSound('gameShow')">(Game Show Theme Music)</mark></p>
-    <p class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 2 DRAMA</p>
+    <p id="day2" class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 2 DRAMA</p>
     <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
     <p style="text-indent: 0pt;text-align: left;"><br/></p>
     <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
@@ -658,7 +727,7 @@
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">(WADE announces the winner then signs off for the day.)</p>
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">WADE: <span class="s4">(to the audience) </span><span class="p">And that&apos;s our show for today! Remember . . . we&apos;re all fearfully and wonderfully made by God! See you tomorrow everyone!</span></h1>
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;"><mark onclick="playSound('gameShow')">(Game Show Theme Music)</mark></p>
-    <p class="s1" style="padding-top: 5pt;padding-left: 182pt;text-indent: 0pt;text-align: center;">DAY 3 DRAMA</p>
+    <p id="day3" class="s1" style="padding-top: 5pt;padding-left: 182pt;text-indent: 0pt;text-align: center;">DAY 3 DRAMA</p>
     <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
     <p style="text-indent: 0pt;text-align: left;"><br/></p>
     <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
@@ -888,7 +957,7 @@
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">WADE: <span class="s4">(to the audience) </span><span class="p">And that&apos;s our show for today! Just remember   we all have value in God&apos;s sight! See you</span></h1>
     <p style="padding-left: 15pt;text-indent: 0pt;line-height: 12pt;text-align: left;">tomorrow everyone!</p>
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: left;"><mark onclick="playSound('gameShow')">(Game Show Theme Music)</mark></p>
-    <p class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 4 DRAMA</p>
+    <p id="day4" class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 4 DRAMA</p>
     <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
     <p style="text-indent: 0pt;text-align: left;"><br/></p>
     <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
@@ -1088,7 +1157,7 @@
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: justify;">(WADE announces the winner then signs off for the day.)</p>
     <h1 style="padding-top: 4pt;padding-left: 15pt;text-indent: -8pt;text-align: justify;">WADE: <span class="s4">(to the audience) </span><span class="p">And that&apos;s our show for today! Just remember . . . there&apos;s only one way to heaven and that&apos;s through repentance and faith in Jesus! See you tomorrow everyone!</span></h1>
     <p class="s3" style="padding-top: 4pt;padding-left: 6pt;text-indent: 0pt;text-align: justify;"><mark onclick="playSound('gameShow')">(Game Show Theme Music)</mark></p>
-    <p class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 5 DRAMA</p>
+    <p id="day5" class="s1" style="padding-top: 5pt;padding-left: 180pt;text-indent: 0pt;text-align: center;">DAY 5 DRAMA</p>
     <p class="s2" style="padding-top: 16pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Characters: Wade, Jen, Cara, Zoey, Stephen</p>
     <p style="text-indent: 0pt;text-align: left;"><br/></p>
     <p style="padding-left: 6pt;text-indent: 0pt;line-height: 1pt;text-align: left;"/>
