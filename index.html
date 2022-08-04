@@ -31,7 +31,7 @@
             z-index: 100;
             position: absolute;
             right: 0;
-            top: 35vh;
+            top: 50px;
             color: white;
             padding: 0.65em;
             background-color: #242424;
@@ -71,7 +71,6 @@
     </style>
     <script>
         function playSound( fileName ) {
-            // if sound was already playing reset it to play again
             var sound = document.getElementById(fileName);
             sound.currentTime = 0;
             sound.play();
